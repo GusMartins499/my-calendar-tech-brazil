@@ -3,35 +3,6 @@ import type { badgeVariants } from '@/components/ui/badge';
 
 export type EventType = 'presencial' | 'online' | 'híbrido' | 'tba';
 
-export type BrazilianState =
-  | 'AC'
-  | 'AL'
-  | 'AP'
-  | 'AM'
-  | 'BA'
-  | 'CE'
-  | 'DF'
-  | 'ES'
-  | 'GO'
-  | 'MA'
-  | 'MT'
-  | 'MS'
-  | 'MG'
-  | 'PA'
-  | 'PB'
-  | 'PR'
-  | 'PE'
-  | 'PI'
-  | 'RJ'
-  | 'RN'
-  | 'RS'
-  | 'RO'
-  | 'RR'
-  | 'SC'
-  | 'SP'
-  | 'SE'
-  | 'TO';
-
 export type Month =
   | 'janeiro'
   | 'fevereiro'
@@ -68,7 +39,7 @@ export type EventDetails = {
   data: string[];
   url: string;
   cidade: string;
-  uf: BrazilianState;
+  uf: string;
   tipo?: EventType;
 };
 
@@ -76,7 +47,7 @@ export type TbaEvent = {
   nome: string;
   url: string;
   cidade: string;
-  uf: BrazilianState;
+  uf: string;
   tipo: EventType;
 };
 
@@ -85,7 +56,7 @@ export type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>['varia
 export type TechEvent = {
   name: string;
   city: string;
-  uf: BrazilianState;
+  uf: string;
   url: string;
   eventDays: string;
   type: string;

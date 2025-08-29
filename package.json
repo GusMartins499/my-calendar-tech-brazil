@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "test:rtl": "vitest run",
+    "test:rtl:ui": "vitest --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -26,12 +28,19 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.0.2",
+    "@vitest/ui": "3.2.4",
+    "jsdom": "^26.1.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5",
-    "ultracite": "5.2.4"
+    "ultracite": "5.2.4",
+    "vitest": "^3.2.4"
   }
 }
