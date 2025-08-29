@@ -17,23 +17,31 @@ type EventCardProps = {
 
 export function EventCard({ event }: EventCardProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{event.name}</CardTitle>
-        <CardDescription>{event.eventDays}</CardDescription>
+    <Card data-testid="tech-event-card">
+      <CardHeader data-testid="tech-event-card-header">
+        <CardTitle data-testid="tech-event-card-title">{event.name}</CardTitle>
+        <CardDescription data-testid="tech-event-card-description">
+          {event.eventDays}
+        </CardDescription>
         {event.type ? (
-          <CardAction>
+          <CardAction
+            aria-roledescription="badge"
+            data-testid="tech-event-card-badge"
+          >
             <Badge variant={event.badge}>{event.type}</Badge>
           </CardAction>
         ) : null}
       </CardHeader>
-      <CardFooter className="justify-between">
-        <Button asChild>
+      <CardFooter
+        className="justify-between"
+        data-testid="tech-event-card-footer"
+      >
+        <Button asChild name="teste">
           <a href={event.url} rel="noreferrer" target="_blank">
             Página oficial do evento
           </a>
         </Button>
-        <Button>
+        <Button data-testid="tech-event-card-action">
           <CalendarPlus />
           Adicionar a minha agenda
         </Button>
