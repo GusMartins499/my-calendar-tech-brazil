@@ -1,47 +1,19 @@
-import { randomUUID } from 'node:crypto';
-import type { VariantProps } from 'class-variance-authority';
 import type {
   EventDetails,
-  EventType,
+  Filters,
   Month,
+  TechEvent,
   YearlyEvent,
 } from '@/@types/tech-events-brazil-api-response';
-import type { badgeVariants } from '@/components/ui/badge';
+import { mapEventDays } from './map-event-days';
+import { mapEventType } from './map-event-type';
+import { MONTH_LABEL_TO_NUMBER } from './map-month-number';
+import { toCapitalize } from './to-capitalize';
 
 const currentYear = new Date().getFullYear();
 
-function toCapitalize(str: string) {
-  return String(str).charAt(0).toUpperCase() + String(str).slice(1);
-}
-
-type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>['variant']>;
-
-function mapEventType(type: EventType | undefined): BadgeVariant {
-  switch (type) {
-    case 'presencial':
-      return 'onSite';
-    case 'híbrido':
-      return 'hybrid';
-    case 'online':
-      return 'online';
-    case 'tba':
-      return 'tba';
-    default:
-      return 'default';
-  }
-}
-
-function mapEventDays(days: string[], month: string) {
-  const isSingleDay = days.length === 1;
-  if (isSingleDay) {
-    return `Dia ${days[0]} de ${month} de ${currentYear}`;
-  }
-  return `Dias ${days.join(',')} de ${month} de ${currentYear}`;
-}
-
 function mappedEvents(eventDetails: EventDetails, month: Month) {
   return {
-    id: randomUUID(),
     name: eventDetails.nome,
     city: eventDetails.cidade,
     uf: eventDetails.uf,
@@ -50,16 +22,26 @@ function mappedEvents(eventDetails: EventDetails, month: Month) {
     type: toCapitalize(eventDetails.tipo ?? ''),
     badge: mapEventType(eventDetails.tipo),
     month: toCapitalize(month),
+    monthNumber: MONTH_LABEL_TO_NUMBER[month],
   };
 }
 
-export function getCurrentTechEvents(events: YearlyEvent[]) {
+export function filterCurrentTechEvents(currentEvents: TechEvent[], filters: Filters) {
+  const { month } = filters
+
+  const filteredEvents = currentEvents.filter((event) => event.monthNumber === month)
+
+  return filteredEvents
+}
+
+export function getCurrentTechEvents(events: YearlyEvent[], filters: Filters) {
   const currentEvents = events
     .filter((event) => event.ano === currentYear)
     .flatMap((yearEvent) => yearEvent.meses.filter((month) => !month.arquivado))
     .flatMap((monthlyEvent) =>
       monthlyEvent.eventos.map((event) => mappedEvents(event, monthlyEvent.mes))
-    );
+    )
+    .filter((event) => event.monthNumber === filters.month)
 
   return currentEvents;
 }

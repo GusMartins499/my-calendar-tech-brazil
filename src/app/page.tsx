@@ -1,47 +1,25 @@
-import { CalendarPlus } from 'lucide-react';
 import { Suspense } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { useTechEvents } from './http/tech-events-brazil';
+import { EventsList } from '@/components/event-list';
+import { Filters } from '@/components/filter';
+import { CURRENT_MONTH } from '@/utils/map-month-number';
+import { fetchTechEvents } from './http/tech-events-brazil';
 
 export default async function Home() {
-  const { events } = await useTechEvents();
+  const { events } = await fetchTechEvents({ month: CURRENT_MONTH });
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="flex flex-col space-y-2.5 px-6">
+      <h1 className="py-2 text-center font-bold text-3xl tracking-tight">
+        Eventos Tech
+      </h1>
+      <p className="text-center font-medium text-xl tracking-tight">
+        Descubra os melhores eventos de tecnologia organizados por mês. <br />
+        Encontre workshops, palestras e conferências que vão impulsionar sua
+        carreira.
+      </p>
+      <Filters currentMonth={CURRENT_MONTH} />
       <Suspense fallback={<p>Loading ...</p>}>
-        {events.map((event) => (
-          <Card key={event.id}>
-            <CardHeader>
-              <CardTitle>{event.name}</CardTitle>
-              <CardDescription>{event.eventDays}</CardDescription>
-              {event.type ? (
-                <CardAction>
-                  <Badge variant={event.badge}>{event.type}</Badge>
-                </CardAction>
-              ) : null}
-            </CardHeader>
-            <CardFooter className="justify-between">
-              <Button asChild>
-                <a href={event.url} rel="noreferrer" target="_blank">
-                  Página oficial do evento
-                </a>
-              </Button>
-              <Button>
-                <CalendarPlus />
-                Adicionar a minha agenda
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+        <EventsList initialEvents={events} />
       </Suspense>
     </div>
   );
