@@ -12,8 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { MONTH_LABEL_TO_NUMBER, MONTHS } from '@/utils/map-month-number';
-import { Button } from './ui/button';
+import {
+  CURRENT_MONTH,
+  MONTH_LABEL_TO_NUMBER,
+  MONTHS,
+} from '@/utils/map-month-number';
 
 const filtersSchema = z.object({
   month: z.enum(MONTH_LABEL_TO_NUMBER),
@@ -21,22 +24,21 @@ const filtersSchema = z.object({
 
 type FilterSchema = z.infer<typeof filtersSchema>;
 
-type FiltersProps = {
-  currentMonth: string;
-};
-
-export function Filters({ currentMonth }: FiltersProps) {
+export function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const { control, handleSubmit, watch } = useForm<FilterSchema>({
     resolver: zodResolver(filtersSchema),
     defaultValues: {
-      month: currentMonth,
+      month: CURRENT_MONTH,
     },
   });
 
   const watchedMonth = watch('month');
+  const onlyFutureMonths = MONTHS.filter(
+    (month) => month.value >= Number(CURRENT_MONTH)
+  );
 
   useEffect(() => {
     if (watchedMonth) {
@@ -50,12 +52,6 @@ export function Filters({ currentMonth }: FiltersProps) {
     const params = new URLSearchParams(searchParams);
     params.set('month', month);
     router.push(`/?${params.toString()}`);
-  };
-
-  const handleClearFilters = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('month');
-    router.push('/');
   };
 
   return (
@@ -79,7 +75,7 @@ export function Filters({ currentMonth }: FiltersProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {MONTHS.map((month) => (
+                {onlyFutureMonths.map((month) => (
                   <SelectItem key={month.value} value={String(month.value)}>
                     {month.label}
                   </SelectItem>
@@ -89,9 +85,6 @@ export function Filters({ currentMonth }: FiltersProps) {
           );
         }}
       />
-      <Button onClick={handleClearFilters} size="default">
-        Limpar filtros
-      </Button>
     </form>
   );
 }

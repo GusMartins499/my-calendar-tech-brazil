@@ -36,7 +36,7 @@ export function EventCard({ event }: EventCardProps) {
         className="justify-between"
         data-testid="tech-event-card-footer"
       >
-        <Button asChild name="teste">
+        <Button asChild>
           <a href={event.url} rel="noreferrer" target="_blank">
             Página oficial do evento
           </a>

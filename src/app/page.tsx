@@ -3,6 +3,7 @@ import { EventsList } from '@/components/event-list';
 import { Filters } from '@/components/filter';
 import { CURRENT_MONTH } from '@/utils/map-month-number';
 import { fetchTechEvents } from './http/tech-events-brazil';
+import Loading from './loading';
 
 export default async function Home() {
   const { events } = await fetchTechEvents({ month: CURRENT_MONTH });
@@ -17,8 +18,8 @@ export default async function Home() {
         Encontre workshops, palestras e conferências que vão impulsionar sua
         carreira.
       </p>
-      <Filters currentMonth={CURRENT_MONTH} />
-      <Suspense fallback={<p>Loading ...</p>}>
+      <Filters />
+      <Suspense fallback={<Loading />}>
         <EventsList initialEvents={events} />
       </Suspense>
     </div>
