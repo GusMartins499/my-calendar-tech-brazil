@@ -54,15 +54,16 @@ export type TbaEvent = {
 export type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>['variant']>;
 
 export type TechEvent = {
-  name: string;
-  city: string;
-  uf: string;
-  url: string;
-  eventDays: string;
-  type: string;
-  badge: BadgeVariant;
-  month: string;
-  monthNumber: string;
+  name: string
+  city: string
+  uf: string
+  url: string
+  eventDays: string
+  eventDate: string[]
+  type: string
+  badge: BadgeVariant
+  month: string
+  monthNumber: string
 };
 
 export type Filters = {

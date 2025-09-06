@@ -1,6 +1,8 @@
 import { CalendarPlus } from 'lucide-react';
+import { toast } from 'sonner';
 import type { TechEvent } from '@/@types/tech-events-brazil-api-response';
-import { authClient } from '@/app/lib/auth-client';
+import { authClient } from '@/app/lib/better-auth-client';
+import { HTTP_STATUS_ERROR } from '@/utils/constants';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import {
@@ -17,25 +19,31 @@ type EventCardProps = {
 };
 
 export function EventCard({ event }: EventCardProps) {
-  const { signIn, useSession, getAccessToken } = authClient;
+  const { useSession } = authClient;
   const session = useSession();
 
-  const handleSignIn = async () => {
-    const userId = session.data?.user.id;
-    if (userId) {
-      const accessToken = await getAccessToken({
-        userId: 'c5sfgp2rdrQsCxQzWnGfc47vT8QbqqhF',
+  const handleSchedule = async () => {
+    if (!session.data) {
+      return toast.warning('Se conecte com Google');
+    }
+    try {
+      const accessToken = await authClient.getAccessToken({
+        userId: session.data.user.id,
         providerId: 'google',
       });
-      return await fetch('/api/schedule', {
+      const responseSchedule = await fetch('/api/schedule', {
         method: 'POST',
-        body: JSON.stringify({ token: accessToken.data?.accessToken }),
+        body: JSON.stringify({ token: accessToken.data?.accessToken, event }),
       });
+
+      if (responseSchedule.status === HTTP_STATUS_ERROR) {
+        toast.error('Não foi possível adicionar o evento na agenda');
+      }
+
+      toast.success('Evento adicionado');
+    } catch (_error) {
+      toast.error('Não foi possível adicionar o evento na agenda');
     }
-    await signIn.social({
-      provider: 'google',
-      scopes: ['https://www.googleapis.com/auth/calendar'],
-    });
   };
 
   return (
@@ -69,7 +77,8 @@ export function EventCard({ event }: EventCardProps) {
         <Button
           className="w-full cursor-pointer xl:w-auto"
           data-testid="tech-event-card-action"
-          onClick={handleSignIn}
+          disabled={session.data?.user === null}
+          onClick={handleSchedule}
         >
           <CalendarPlus />
           Adicionar a minha agenda

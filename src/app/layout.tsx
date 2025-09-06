@@ -4,6 +4,7 @@ import './globals.css';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { Toaster } from '@/components/ui/sonner';
 import ErrorFallback from './error';
 
 const interFont = Inter({
@@ -28,6 +29,7 @@ export default function RootLayout({
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Header />
           <main className="min-h-screen">{children}</main>
+          <Toaster richColors={true} />
           <Footer />
         </ErrorBoundary>
       </body>

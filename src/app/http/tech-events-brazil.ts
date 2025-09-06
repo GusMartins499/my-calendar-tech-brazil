@@ -12,12 +12,10 @@ export async function fetchTechEvents(filters: Filters) {
 
     return {
       events: currentEvents,
-      tba: techEvents.tba,
     };
   } catch (_error) {
     return {
       events: [],
-      tba: [],
     };
   }
 }

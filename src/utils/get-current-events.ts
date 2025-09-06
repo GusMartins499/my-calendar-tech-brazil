@@ -19,6 +19,7 @@ function mappedEvents(eventDetails: EventDetails, month: Month) {
     uf: eventDetails.uf,
     url: eventDetails.url,
     eventDays: mapEventDays(eventDetails.data, toCapitalize(month)),
+    eventDate: eventDetails.data,
     type: toCapitalize(eventDetails.tipo ?? ''),
     badge: mapEventType(eventDetails.tipo),
     month: toCapitalize(month),

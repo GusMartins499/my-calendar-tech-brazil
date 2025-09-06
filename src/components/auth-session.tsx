@@ -2,7 +2,7 @@
 
 import { LogOut, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { authClient } from '@/app/lib/auth-client';
+import { authClient } from '@/app/lib/better-auth-client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -14,6 +14,9 @@ export function AuthSession() {
 
   useEffect(() => {
     if (session.data || session.error) {
+      setIsLoading(false);
+    }
+    if (session.data === null && session.error === null) {
       setIsLoading(false);
     }
   }, [session.data, session.error]);

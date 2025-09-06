@@ -1,0 +1,1 @@
+export const HTTP_STATUS_ERROR = 500
