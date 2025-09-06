@@ -40,7 +40,7 @@ export function EventsList({ initialEvents }: EventsListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 px-4 pb-4 md:grid-cols-2 md:px-4 lg:grid-cols-3">
       <Suspense fallback={<Loading />}>
         {techEvents.map((event) => (
           <EventCard event={event} key={event.name} />

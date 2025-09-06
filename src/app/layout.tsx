@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Footer } from '@/components/footer';
+import { Header } from '@/components/header';
 import ErrorFallback from './error';
 
 const interFont = Inter({
@@ -24,7 +26,9 @@ export default function RootLayout({
     <html className="dark" lang="pt">
       <body className={`${interFont.variable} antialiased`}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          {children}
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
         </ErrorBoundary>
       </body>
     </html>

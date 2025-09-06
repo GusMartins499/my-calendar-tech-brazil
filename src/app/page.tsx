@@ -9,15 +9,7 @@ export default async function Home() {
   const { events } = await fetchTechEvents({ month: CURRENT_MONTH });
 
   return (
-    <div className="flex flex-col space-y-2.5 px-6">
-      <h1 className="py-2 text-center font-bold text-3xl tracking-tight">
-        Eventos Tech
-      </h1>
-      <p className="text-center font-medium text-xl tracking-tight">
-        Descubra os melhores eventos de tecnologia organizados por mês. <br />
-        Encontre workshops, palestras e conferências que vão impulsionar sua
-        carreira.
-      </p>
+    <div className="container mx-auto flex flex-col">
       <Filters />
       <Suspense fallback={<Loading />}>
         <EventsList initialEvents={events} />

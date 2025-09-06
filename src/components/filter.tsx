@@ -56,7 +56,7 @@ export function Filters() {
 
   return (
     <form
-      className="flex items-center gap-2"
+      className="flex items-center justify-between px-4 py-2.5 lg:justify-start lg:gap-2 xl:px-4"
       onSubmit={handleSubmit(handleFilter)}
     >
       <span className="font-semibold text-sm">Filtros:</span>
