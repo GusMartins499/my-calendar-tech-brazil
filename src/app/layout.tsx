@@ -29,7 +29,7 @@ export default function RootLayout({
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Header />
           <main className="min-h-screen">{children}</main>
-          <Toaster richColors={true} />
+          <Toaster position="top-center" richColors={true} />
           <Footer />
         </ErrorBoundary>
       </body>

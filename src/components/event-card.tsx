@@ -1,4 +1,5 @@
-import { CalendarPlus } from 'lucide-react';
+import { CalendarPlus, Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import type { TechEvent } from '@/@types/tech-events-brazil-api-response';
 import { authClient } from '@/app/lib/better-auth-client';
@@ -21,11 +22,14 @@ type EventCardProps = {
 export function EventCard({ event }: EventCardProps) {
   const { useSession } = authClient;
   const session = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSchedule = async () => {
     if (!session.data) {
       return toast.warning('Se conecte com Google');
     }
+    
+    setIsLoading(true);
     try {
       const accessToken = await authClient.getAccessToken({
         userId: session.data.user.id,
@@ -37,12 +41,14 @@ export function EventCard({ event }: EventCardProps) {
       });
 
       if (responseSchedule.status === HTTP_STATUS_ERROR) {
-        toast.error('Não foi possível adicionar o evento na agenda');
+        return toast.error('Não foi possível adicionar o evento na agenda');
       }
 
       toast.success('Evento adicionado');
     } catch (_error) {
       toast.error('Não foi possível adicionar o evento na agenda');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,11 +83,15 @@ export function EventCard({ event }: EventCardProps) {
         <Button
           className="w-full cursor-pointer xl:w-auto"
           data-testid="tech-event-card-action"
-          disabled={session.data?.user === null}
+          disabled={session.data?.user === null || isLoading}
           onClick={handleSchedule}
         >
-          <CalendarPlus />
-          Adicionar a minha agenda
+          {isLoading ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <CalendarPlus />
+          )}
+          {isLoading ? 'Adicionando...' : 'Adicionar a minha agenda'}
         </Button>
       </CardFooter>
     </Card>
