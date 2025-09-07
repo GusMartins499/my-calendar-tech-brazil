@@ -63,6 +63,31 @@ Follow these instructions to get a copy of the project up and running on your lo
     NEXT_PUBLIC_GOOGLE_SCOPE="https://www.googleapis.com/auth/calendar"
     ```
 
+### Google Cloud Platform Setup
+
+To use the Google Calendar integration, you need to set up a project on the Google Cloud Platform and enable the Google Calendar API.
+
+1.  **Create a new project:**
+    *   Go to the [Google Cloud Console](https://console.cloud.google.com/).
+    *   Click on the project dropdown in the top navigation bar and select "New Project".
+    *   Give your project a name and click "Create".
+
+2.  **Enable the Google Calendar API:**
+    *   In the navigation menu, go to "APIs & Services" > "Library".
+    *   Search for "Google Calendar API" and enable it for your project.
+
+3.  **Create OAuth 2.0 Client ID:**
+    *   In the navigation menu, go to "APIs & Services" > "Credentials".
+    *   Click on "Create Credentials" and select "OAuth 2.0 Client ID".
+    *   Choose "Web application" as the application type.
+    *   Add `http://localhost:3000` to the "Authorized JavaScript origins".
+    *   Add `http://localhost:3000/api/auth/google/callback` to the "Authorized redirect URIs".
+    *   Click "Create".
+
+4.  **Get your credentials:**
+    *   After creating the credentials, you will see your "Client ID" and "Client Secret".
+    *   Copy these values and add them to your `.env` file as `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+
 ### Running the Development Server
 
 To start the development server, run the following command:
