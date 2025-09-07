@@ -104,3 +104,7 @@ docker-compose up -d --build
 ## 🙏 Acknowledgements
 
 *   [Tech Events Brazil API](https://raw.githubusercontent.com/agenda-tech-brasil/agenda-tech-brasil/main/src/db/database.json) for providing the event data.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
