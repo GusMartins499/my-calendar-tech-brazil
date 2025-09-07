@@ -1,1 +1,2 @@
 export const HTTP_STATUS_ERROR = 500
+export const TIMEOUT_PROMISE_MOCK = 100

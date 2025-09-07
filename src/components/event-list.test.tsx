@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
-import { expect, test, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import type { TechEvent } from '@/@types/tech-events-brazil-api-response';
 import { EventsList } from './event-list';
 
@@ -7,6 +7,7 @@ const mockEvents: TechEvent[] = [
   {
     name: 'Next.js Conf',
     eventDays: '10 de Setembro de 2025',
+    eventDate: ['10'],
     url: 'https://nextjs.org/conf',
     type: 'Online',
     badge: 'online',
@@ -18,6 +19,7 @@ const mockEvents: TechEvent[] = [
   {
     name: 'Evento React',
     eventDays: '10 de Outubro de 2025',
+    eventDate: ['10'],
     url: 'https://react.dev/',
     type: 'Híbrido',
     badge: 'hybrid',
@@ -29,6 +31,7 @@ const mockEvents: TechEvent[] = [
   {
     name: 'Evento NodeJS',
     eventDays: '10 de Novembro de 2025',
+    eventDate: ['10'],
     url: 'https://nodejs.org/pt',
     type: 'Presencial',
     badge: 'onSite',
@@ -52,37 +55,39 @@ vi.mock('next/navigation', () => {
   };
 });
 
-test('Should be able to render a list of events', () => {
-  render(<EventsList initialEvents={mockEvents} />);
+describe('Event-list', () => {
+  test('Should be able to render a list of events', () => {
+    render(<EventsList initialEvents={mockEvents} />);
 
-  expect(screen.getAllByTestId('tech-event-card')).toHaveLength(
-    mockEvents.length
-  );
-});
-
-test('Should be able to render the official page button', () => {
-  render(<EventsList initialEvents={mockEvents} />);
-
-  const buttons = screen.getAllByRole('link', {
-    name: REGEX_OFFICIAL_PAGE_BUTTON_TEXT,
+    expect(screen.getAllByTestId('tech-event-card')).toHaveLength(
+      mockEvents.length
+    );
   });
 
-  expect(buttons).toHaveLength(mockEvents.length);
-});
+  test('Should be able to render the official page button', () => {
+    render(<EventsList initialEvents={mockEvents} />);
 
-test('Event card buttons should have correct attributes', () => {
-  render(<EventsList initialEvents={mockEvents} />);
-
-  const cards = screen.getAllByTestId('tech-event-card');
-
-  for (const card of cards) {
-    const link = within(card).getByRole('link', {
+    const buttons = screen.getAllByRole('link', {
       name: REGEX_OFFICIAL_PAGE_BUTTON_TEXT,
     });
 
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', link.getAttribute('href'));
-    expect(link).toHaveAttribute('target', '_blank');
-    expect(link).toHaveAttribute('rel', 'noreferrer');
-  }
+    expect(buttons).toHaveLength(mockEvents.length);
+  });
+
+  test('Should event card buttons should have correct attributes', () => {
+    render(<EventsList initialEvents={mockEvents} />);
+
+    const cards = screen.getAllByTestId('tech-event-card');
+
+    for (const card of cards) {
+      const link = within(card).getByRole('link', {
+        name: REGEX_OFFICIAL_PAGE_BUTTON_TEXT,
+      });
+
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', link.getAttribute('href'));
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noreferrer');
+    }
+  });
 });

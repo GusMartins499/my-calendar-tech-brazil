@@ -24,7 +24,7 @@ export function AuthSession() {
   const handleSignIn = async () => {
     await authClient.signIn.social({
       provider: 'google',
-      scopes: ['https://www.googleapis.com/auth/calendar'],
+      scopes: [process.env.NEXT_PUBLIC_GOOGLE_SCOPE ?? ''],
     });
   };
 
@@ -34,7 +34,7 @@ export function AuthSession() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2" data-testid="avatar-loading">
         <Skeleton className="size-8 rounded-full" />
         <Skeleton className="h-4 w-24" />
       </div>
@@ -45,12 +45,12 @@ export function AuthSession() {
     return (
       <div className="flex items-center space-x-3">
         <div className="flex items-center space-x-2">
-          <Avatar className="size-8">
+          <Avatar className="size-8" data-testid="user-avatar">
             <AvatarImage
               alt={session.data.user.name || 'Usuário'}
               src={session.data.user.image || ''}
             />
-            <AvatarFallback>
+            <AvatarFallback data-testid="avatar-fallback">
               <User className="size-4" />
             </AvatarFallback>
           </Avatar>

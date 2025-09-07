@@ -9,7 +9,8 @@
         "useBlockStatements": "off"
       },
       "performance": {
-        "noNamespaceImport": "off"
+        "noNamespaceImport": "off",
+        "useTopLevelRegex":"off"
       }
     }
   }

@@ -39,6 +39,7 @@ export function UserAvatar({
       <Avatar>
         <AvatarImage
           alt="Usuário Google"
+          data-testid="user-avatar"
           src={session?.data?.user.image ?? ''}
         />
         <AvatarFallback>{session?.data?.user?.name}</AvatarFallback>
