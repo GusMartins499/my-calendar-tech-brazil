@@ -28,7 +28,7 @@ export function EventCard({ event }: EventCardProps) {
     if (!session.data) {
       return toast.warning('Se conecte com Google');
     }
-    
+
     setIsLoading(true);
     try {
       const accessToken = await authClient.getAccessToken({
@@ -83,14 +83,10 @@ export function EventCard({ event }: EventCardProps) {
         <Button
           className="w-full cursor-pointer xl:w-auto"
           data-testid="tech-event-card-action"
-          disabled={session.data?.user === null || isLoading}
+          disabled={session?.data === null || isLoading}
           onClick={handleSchedule}
         >
-          {isLoading ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            <CalendarPlus />
-          )}
+          {isLoading ? <Loader2 className="animate-spin" /> : <CalendarPlus />}
           {isLoading ? 'Adicionando...' : 'Adicionar a minha agenda'}
         </Button>
       </CardFooter>
