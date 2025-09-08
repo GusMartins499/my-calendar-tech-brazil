@@ -1,6 +1,11 @@
-# My Calendar Tech Brazil
+# My Calendar Tech Brazil 🇧🇷
 
 Welcome to My Calendar Tech Brazil! This is a web application that allows you to browse and filter technology events happening in Brazil.
+
+## ✅ To-do
+- [ ] Finish RTL tests
+- [ ] E2E tests
+- [ ] Refresh token
 
 ## ✨ Features
 
@@ -23,13 +28,13 @@ This project is built with the following technologies:
 
 ## 💻 Getting Started
 
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+You can follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
 *   [Node.js](https://nodejs.org/) (v20 or higher)
 *   [pnpm](https://pnpm.io/) (optional)
-    > If you are using yarn or npm, maybe you will need to managed the docker files
+    > If you are using yarn or npm, maybe you will need to manage the Docker files
 *   [Docker](https://www.docker.com/) (optional, for containerized development)
 
 ### Installation
@@ -53,7 +58,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     npm install
     ```
 
-3.  Set up your environment variables by creating a `.env` file in the root of the project.
+3.  Set up your environment variables by creating a `.env` file in the project's root.
     ```bash
     GOOGLE_CLIENT_ID=
     GOOGLE_CLIENT_SECRET=
