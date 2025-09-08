@@ -1,6 +1,16 @@
-# My Calendar Tech Brazil 🇧🇷
+<div>
+    <h1 align='center'>
+        My calendar tech Brazil
+        <img alt="pin" src="./src/app/icon.png" width='24' height='24' />
+    </h1>
+</div>
 
 Welcome to My Calendar Tech Brazil! This is a web application that allows you to browse and filter technology events happening in Brazil.
+
+## 🙏 Acknowledgements
+
+*   [Tech Events Brazil](https://github.com/agenda-tech-brasil/agenda-tech-brasil) for providing a repository for all scheduled events.
+*   [Tech Events Brazil API](https://raw.githubusercontent.com/agenda-tech-brasil/agenda-tech-brasil/main/src/db/database.json) for providing the event data.
 
 ## ✅ To-do
 - [ ] Finish RTL tests
@@ -130,10 +140,6 @@ docker-compose build
 docker-compose up -d
 docker-compose up -d --build
 ```
-
-## 🙏 Acknowledgements
-
-*   [Tech Events Brazil API](https://raw.githubusercontent.com/agenda-tech-brasil/agenda-tech-brasil/main/src/db/database.json) for providing the event data.
 
 ## 📄 License
 
